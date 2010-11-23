@@ -18,14 +18,14 @@ def get_dummy_lib(header):
                     new_headers.update(headers)
                 kwargs['headers'] = new_headers
 
+            import pdb;pdb.set_trace()
             return super(DummyLib, self).request(*args, **kwargs)
 
     return DummyLib
 
 def get_basicauth_header(username, password):
-    auth = '%s:%s' % (username, password)
-    auth = 'Basic %s' % base64.encodestring(auth.strip())
-    return { 'HTTP_AUTHORIZATION': auth, }
+    auth = base64.encodestring('%s:%s' % (username, password))[:-1]
+    return { 'Authorization': 'Basic %s' % auth}
 
 def get_authent_lib(username, password):
     return get_dummy_lib(get_basicauth_header(username,password))

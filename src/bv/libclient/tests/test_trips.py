@@ -10,7 +10,7 @@ from unittest import TestCase
 from bv.libclient.libtrips import LibTrips
 
 
-from bv.libclient.baselib import BaseLib
+from bv.libclient.baselib import BaseLib, BvResource
 from bv.libclient.tests.helpers import get_authent_lib
 
 class TestTripScenario1(TestCase):
@@ -21,21 +21,19 @@ class TestTripScenario1(TestCase):
         self.lt = LibTrips(server_url="http://127.0.0.1:8085")
 
     def tearDown(self):
-        pass
+        BaseLib._resource_class = BvResource
 
-    def XXXtest_counttrip(self):
-        nb_trips = self.lt.count_trips()
-        self.assertEquals(nb_trips, 0, "Still no trip provided")
+    # def test_create_trip(self):
+    #     nb_trips = self.lt.count_trips()
+    #     self.assertEquals(nb_trips, 0, "Still no trip provided")
 
-    def test_listtrip(self):
-        response = self.lt.list_trips()
-        # fix me
+    def FAILXXXtest_test(self):
+        self.lt.list_user_trips()
 
-    def test_getcities(self):
-        prefix = "Pari"
-        cities = self.lt.get_cities(prefix)
-        l = [c for c in cities if prefix in c['name']]
-        self.assertEquals(len(cities), len(l), "We retrieve all cities with the right prefix")
+    def test_test(self):
+        import pdb; pdb.set_trace()
+        self.lt.add_trip(*{})
+
 
 if __name__ == "__main__":
     unittest.main()
