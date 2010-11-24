@@ -1,3 +1,9 @@
 *.pyc
 setuptools_hg-0.2-py2.6.egg/
 src/bv.libclient.egg-info/
+*.swp
+bin/
+.*.cfg
+develop-eggs/
+eggs/
+src.mrdeveloper/
