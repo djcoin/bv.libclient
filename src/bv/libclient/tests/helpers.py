@@ -1,5 +1,23 @@
 import base64
-from bv.libclient.baselib import BvResource
+import unittest
+
+from bv.libclient.baselib import BvResource, BaseLib
+
+class TestMother(unittest.TestCase):
+    def setUp(self):
+        BaseLib._resource_class = get_authent_lib('toto', 'tototo')
+        # real test server url - no trailing slash ! -
+        self.server_url = "http://127.0.0.1:8085"
+        self._teardown = []
+        self._register_teardown = lambda x: self._teardown.append(x)
+
+    def tearDown(self):
+        # teardown
+        while len(self._teardown):
+            self._teardown.pop()()
+
+        # WARNING SHOULD BE LAST THING TO tearDown
+        BaseLib._resource_class = BvResource
 
 
 def get_dummy_lib(header):
@@ -18,7 +36,6 @@ def get_dummy_lib(header):
                     new_headers.update(headers)
                 kwargs['headers'] = new_headers
 
-            import pdb;pdb.set_trace()
             return super(DummyLib, self).request(*args, **kwargs)
 
     return DummyLib
@@ -29,4 +46,5 @@ def get_basicauth_header(username, password):
 
 def get_authent_lib(username, password):
     return get_dummy_lib(get_basicauth_header(username,password))
+
 

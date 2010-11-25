@@ -26,6 +26,10 @@ class TestTripScenario1(TestCase):
         response = self.lt.list_trips()
         # fix me
 
+    def FAILXXXtest_test(self):
+        self.lt.list_user_trips()
+
+
     def test_getcities(self):
         prefix = "Pari"
         cities = self.lt.get_cities(prefix)
