@@ -19,15 +19,18 @@ class ServerCmd(object):
     def create_trip(self):
         """set up method:
             return a trip that was created on the server side without risk"""
-        print "Fixture: creating valid trip"
+        print "Fixture: creating valid trip",
         trip = self.lt.add_trip(**get_valid_trip_full_data())
+        print ": id %s" % trip.id
         return (trip.id, trip)
 
     def delete_trip(self, id_trip):
-        print "Fixture: deleting valid trip"
+        print "Fixture: deleting valid trip: id %s" % id_trip
         self.lt.delete_trip(id_trip)
 
 
+# each get_valid_trip_full_data version should provide different datas
+# ! maintain synchronization between them ! #
 def get_valid_trip_full_data():
     """return all the data that can be obtain to define a valid trip.
     """
@@ -38,6 +41,7 @@ def get_valid_trip_full_data():
     'departure_point': "POINT(1.4429513 43.60436300000001)",
     'arrival_city': "paris",
     'arrival_point': "POINT(2.3509871 48.85666670000002)",
+    'arrival_address': "",
     'comment': "",
     'date': "20/01/2010",
     'demand-passenger_car_type': "",
@@ -55,6 +59,43 @@ def get_valid_trip_full_data():
     'alert': "on",
     }
 
+def get_valid_trip_full_data_v1():
+    # TODO: what is a valid POINT ?
+
+    return {
+    'trip_type': "%d" % TRIP_DEMAND,
+    'departure_address': "place du Commerce",
+    'departure_city': "Nantes",
+    # 'departure_point': "POINT(1.4429513 43.60436300000001)",
+    'arrival_city': "Rennes",
+    # 'arrival_point': "POINT(2.3509871 48.85666670000002)",
+    'comment': "Updated comment",
+    'date': "30/01/2010",
+    # 'demand-passenger_car_type': "",
+    'demand-passenger_max_km_price': "2",
+    'demand-passenger_min_remaining_seats': "3",
+    'demand-passenger_pets_accepted': "off",
+    'demand-passenger_smokers_accepted': "off",
+    'demand-radius': "200",
+    'interval_max': "2",
+    'interval_min': "3",
+    'name': "new announce name",
+    'offer-radius': "200",
+    'regular': "True",
+    'time': "7",
+    'alert': "off",
+    }
+
+
+# TODO
+# test that creation/updates fail with erroneous data
+# can be used to mix valid and erroneous data to check a specific arg
+def get_erroneous_trip_full_data_v1():
+    return {}
+
+
+# TODO
+# SPEFIC DATA SET FOR OFFERS
 
 """
 Valid parameters for creation AND updates::

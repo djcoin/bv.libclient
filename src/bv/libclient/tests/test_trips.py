@@ -87,41 +87,6 @@ class TestTripDelete(TestMother):
         return # success
 
 
-class TestTripUpdate(TestMother):
-# class TestTripUpdate(object):
-
-    def setUp(self):
-        super(TestTripUpdate, self).setUp()
-        self.lt = LibTrips(self.server_url)
-        self.srvcmd = ServerCmd(self.lt)
-
-        self.id_trip, _ = self.srvcmd.create_trip()
-
-        self._register_teardown(lambda: self.srvcmd.delete_trip(self.id_trip))
-
-    def test_update_trip_erroneous_parameters_should_succeed(self):
-        dct = {'erroneous key': "erroneous value"}
-        try:
-            obj = self.lt.edit_trip(self.id_trip, **dct)
-        except RequestFailed, e:
-            self.fail("fail for request")
-        except EditTripFormError, e:
-            self.fail("fail for tripformerror")
-        return # success
-
-    def test_update_trip_valid_parameters_should_succeed(self):
-        dct = {'interval_max': "5"}
-        try:
-            obj = self.lt.edit_trip(self.id_trip, **dct)
-            self.assertEquals(obj.interval_max, 5)
-        except RequestFailed, e:
-            self.fail("fail for request")
-        except EditTripFormError, e:
-            self.fail("fail for tripformerror")
-        return # success
-
-
-
 
 if __name__ == "__main__":
     unittest.main()

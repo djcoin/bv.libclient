@@ -156,6 +156,8 @@ class LibTrips(BaseLib):
         """Send new informations about the trip to the API, and return the right
         response/error.
         
+        WARNING: those information should not contain alert updates.
+        (server return 'OK' which is not json)
         """
         kwargs = self._transform_dows(kwargs)
         response = self.get_resource('trip').put(path='%s/' % trip_id, payload=format_dict2str(kwargs))
