@@ -162,4 +162,4 @@ if __name__ == "__main__":
 # TODO:
 # Test get/create/get/update/get/delete/get
 #
-# ../../../../bin/python test_trips.py
+# ../../../../bin/python test_update_trips.py
